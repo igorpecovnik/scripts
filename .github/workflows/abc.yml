@@ -37,4 +37,7 @@ jobs:
         run: |
         
           WORKFLOW=$(gh api "/repos/igorpecovnik/scripts/actions/workflows" | jq '.workflows[] | select(.name=="ABC")' | jq -r '.id')
-          gh api "/repos/igorpecovnik/scripts/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt'
+          read ID STATUS ATTEMPT <<< $(gh api "/repos/igorpecovnik/scripts/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt' | head -3 | xargs -n3 -d'\n')
+          
+          echo "ID=$ID STATUS=$STATUS ATTEMPT=$ATTEMPT"
+          
