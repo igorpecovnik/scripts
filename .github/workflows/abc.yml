@@ -7,7 +7,11 @@ on:
   repository_dispatch:
     types: [Recreate Matrix]
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
+
 
   build:
     name: Recreate action
