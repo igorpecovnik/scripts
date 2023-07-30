@@ -42,5 +42,10 @@ jobs:
           echo "ID=$ID STATUS=$STATUS ATTEMPT=$ATTEMPT"
           if [ "${ATTEMPT}" -lt 5 ]; then
           echo "Noch einmal"
+          gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/igorpecovnik/scripts/actions/runs/${ID}/rerun-failed-jobs
           fi
           
