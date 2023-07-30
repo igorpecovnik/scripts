@@ -27,7 +27,7 @@ jobs:
         
   Stop:
     name: "Merge artifacts"
-    if: fails()
+    if: failure()
     needs: build
     runs-on: ubuntu-latest
     steps:
