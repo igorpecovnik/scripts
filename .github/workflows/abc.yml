@@ -36,10 +36,5 @@ jobs:
       - name: "Runner clean"
         run: |
         
-          ID=$(gh api "/repos/igorpecovnik/scripts/actions/workflows" | jq '.workflows[] | select(.name=="ABC")' | jq -r '.id')
-          echo "ID=$ID"
-
-          gh api --method POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/igorpecovnik/scripts/actions/runs/$[ID]/rerun-failed-jobs
+          WORKFLOW=$(gh api "/repos/igorpecovnik/scripts/actions/workflows" | jq '.workflows[] | select(.name=="ABC")' | jq -r '.id')
+          gh api "/repos/igorpecovnik/scripts/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt'
