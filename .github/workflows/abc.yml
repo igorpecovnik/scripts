@@ -24,3 +24,16 @@ jobs:
         gh api -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" /repos/igorpecovnik/scripts/actions/workflows
         exit 1
+        
+  Stop:
+    name: "Merge artifacts"
+    if: fails()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Runner clean"
+        run: |
+        
+          ID=$(gh api "/repos/igorpecovnik/scripts/actions/workflows" | jq '.workflows[] | select(.name=="ABC")' | jq -r '.id')
+          echo "ID=$ID"
