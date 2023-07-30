@@ -23,7 +23,8 @@ jobs:
         echo "ABC"
         gh api -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" /repos/igorpecovnik/scripts/actions/workflows
-        exit 0
+        sleep 20
+        exit 1
         
   Stop:
     name: "Merge artifacts"
@@ -37,3 +38,8 @@ jobs:
         
           ID=$(gh api "/repos/igorpecovnik/scripts/actions/workflows" | jq '.workflows[] | select(.name=="ABC")' | jq -r '.id')
           echo "ID=$ID"
+
+          gh api --method POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/igorpecovnik/scripts/actions/jobs/$[ID]/rerun
