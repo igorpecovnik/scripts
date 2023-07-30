@@ -1,0 +1,20 @@
+#
+# This action recreate action for building stable images
+#
+name: ABC
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [Recreate Matrix]
+
+jobs:
+
+  build:
+    name: Recreate action
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Test
+      run: |
+        echo "ABC"
+        slepp 10
