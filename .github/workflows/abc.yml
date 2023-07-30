@@ -17,4 +17,5 @@ jobs:
     - name: Test
       run: |
         echo "ABC"
-        slepp 10
+        gh api -H "Accept: application/vnd.github+json" \
+        -H "X-GitHub-Api-Version: 2022-11-28" /repos/igorpecovnik/scripts/actions/workflows
