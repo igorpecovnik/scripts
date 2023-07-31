@@ -24,7 +24,7 @@ jobs:
           read ID STATUS ATTEMPT <<< $(gh api "/repos/armbian/os/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt' | head -3 | xargs -n3 -d'\n')
           
           echo "ID=$ID STATUS=$STATUS ATTEMPT=$ATTEMPT"
-          if [ "${ATTEMPT}" -lt 5 && "$STATUS" == "failure" ]; then
+          if [ "${ATTEMPT}" -lt 5 ] && [ "$STATUS" == "failure" ]; then
           echo "Noch einmal"
           gh api \
           --method POST \
