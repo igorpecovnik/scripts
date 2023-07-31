@@ -1,7 +1,7 @@
 #
 # This action recreate action for building stable images
 #
-name: ABC
+name: Watchdog
 on:
   workflow_dispatch:
   repository_dispatch:
@@ -12,35 +12,19 @@ env:
 
 jobs:
 
-
-  build:
-    name: Recreate action
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Test
-      run: |
-        echo "ABC"
-        gh api -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" /repos/igorpecovnik/scripts/actions/workflows
-        sleep 20
-        exit 1
-        
-  Stop:
+  Check:
     name: "Merge artifacts"
-    if: failure()
-    needs: build
     runs-on: ubuntu-latest
     steps:
 
-      - name: "Runner clean"
+      - name: "Read status"
         run: |
         
           WORKFLOW=$(gh api "/repos/armbian/os/actions/workflows" | jq '.workflows[] | select(.name=="Build Nightly Images (cronjob)")' | jq -r '.id')
           read ID STATUS ATTEMPT <<< $(gh api "/repos/armbian/os/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt' | head -3 | xargs -n3 -d'\n')
           
           echo "ID=$ID STATUS=$STATUS ATTEMPT=$ATTEMPT"
-          if [ "${ATTEMPT}" -lt 5 ]; then
+          if [ "${ATTEMPT}" -lt 5 && "$STATUS" == "failure" ]; then
           echo "Noch einmal"
           gh api \
           --method POST \
