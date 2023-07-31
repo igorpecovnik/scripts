@@ -36,8 +36,8 @@ jobs:
       - name: "Runner clean"
         run: |
         
-          WORKFLOW=$(gh api "/repos/igorpecovnik/scripts/actions/workflows" | jq '.workflows[] | select(.name=="ABC")' | jq -r '.id')
-          read ID STATUS ATTEMPT <<< $(gh api "/repos/igorpecovnik/scripts/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt' | head -3 | xargs -n3 -d'\n')
+          WORKFLOW=$(gh api "/repos/armbian/os/actions/workflows" | jq '.workflows[] | select(.name=="Build Nightly Images (cronjob)")' | jq -r '.id')
+          read ID STATUS ATTEMPT <<< $(gh api "/repos/armbian/os/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt' | head -3 | xargs -n3 -d'\n')
           
           echo "ID=$ID STATUS=$STATUS ATTEMPT=$ATTEMPT"
           if [ "${ATTEMPT}" -lt 5 ]; then
