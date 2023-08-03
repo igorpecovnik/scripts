@@ -6,27 +6,18 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [Recreate Matrix]
-
-env:
-  GH_TOKEN: ${{ secrets.REPO }}
-
 jobs:
-
-  Check:
-    name: "Watchdog"
+  table:
     runs-on: ubuntu-latest
+    name: Update README from json data
     steps:
-
-      - name: "Read status"
-        run: |
-
-          OWNER_REPO="armbian/os"
-          WORKFLOW=$(gh api "/repos/${OWNER_REPO}/actions/workflows" | jq '.workflows[] | select(.name=="Build Nightly Images (cronjob)")' | jq -r '.id')
-          read ID STATUS ATTEMPT <<< $(gh api "/repos/${OWNER_REPO}/actions/workflows/${WORKFLOW}/runs" | jq '.workflow_runs[]' | jq -r '.id,.conclusion,.run_attempt' | head -3 | xargs -n3 -d'\n')
-          echo "ID=$ID STATUS=$STATUS ATTEMPT=$ATTEMPT"
-          
-          # if attempt is lower then 5 and status is "failure", rerun failed jobs
-          
-          if [ "${ATTEMPT}" -lt 5 ] && [ "$STATUS" == "failure" ]; then          
-          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/${OWNER_REPO}/actions/runs/${ID}/rerun-failed-jobs
-          fi
+    - uses: actions/checkout@v2
+    - name: Read/Write data into README
+      uses: eddiejaoude/github-actions-reader-writer@v0.1
+      with:
+        json-file-path: 'data.json'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        columns: 3
+        object-field-names: '[ "githubUsername", "name", "imageUrl", "issueNumber" ]'
+        file-to-use: 'README.md'
+        html-cell: '<td align="center"><p><a href="https://github.com/{{ githubUsername }}">{{ name }}</a></p><img src="{{ imageUrl }}" /><p><a href="https://github.com/EddieJaoudeCommunity/awesome-github-profiles/issues/{{ issueNumber }}">(:100: give your vote)</a></p></td>'
