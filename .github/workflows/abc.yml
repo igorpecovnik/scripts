@@ -20,4 +20,4 @@ jobs:
         columns: 3
         object-field-names: '[ "started", "dut_ip", "board_name", "board_slug", "u-boot", "kernel" , "iperf" , "sevenzip" , "armbian_monitor" , "kernel_target" ]'
         file-to-use: 'README.md'
-        html-cell: '<tr><td align="left"><a href="{{ armbian_monitor }}">{{ board_name }}</a></p></td><td>{{ u-boot }}</td><td>{{ kernel }}</td></tr>'
+        html-cell: '<tr><td align="left"><a href="{{ armbian_monitor }}">{{ board_name }}</a></p></td><td>{{ kernel_target }}</td><td>{{ u-boot }}</td><td>{{ kernel }}</td><td>{{ iperf }}</td><td>{{ sevenzip }}</td></tr>'
