@@ -16,7 +16,7 @@ jobs:
       uses: eddiejaoude/github-actions-reader-writer@v0.1
       with:
         json-file-path: 'merged.json'
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.REPO }}
         columns: 3
         object-field-names: '[ "started", "started", "board_name", "board_slug", "u-boot", "kernel" , "iperf" , "sevenzip" , "armbian_monitor" , "kernel_target" ]'
         file-to-use: 'README.md'
