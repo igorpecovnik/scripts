@@ -17,7 +17,7 @@ jobs:
       with:
         json-file-path: 'merged.json'
         github-token: ${{ secrets.REPO }}
-        columns: 3
-        object-field-names: '[ "started", "dut_ip", "board_name", "board_slug", "u-boot", "kernel" , "iperf" , "sevenzip" , "armbian_monitor" , "kernel_target" ]'
+        columns: 7
+        object-field-names: '[ "board_name", "board_slug", "u-boot", "kernel" , "iperf" , "sevenzip" , "armbian_monitor" , "kernel_target" ]'
         file-to-use: 'README.md'
-        html-cell: '<tr><td align="left"><a href="{{ armbian_monitor }}">{{ board_name }}</a></p></td><td>{{ kernel_target }}</td><td>{{ u-boot }}</td><td>{{ kernel }}</td><td>{{ iperf }}</td><td>{{ sevenzip }}</td></tr>'
+        html-cell: '<tr><td align="left">{{ board_name }}</td><td align=left>{{ kernel_target }}</td><td align=right>{{ u-boot }}</td><td align=right>{{ kernel }}</td><td align=right>{{ iperf }}</td><td aligh=right>{{ sevenzip }}</td><td align=right><a href="{{ armbian_monitor }}">Logs</a></td></tr>'
