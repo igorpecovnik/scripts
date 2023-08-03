@@ -17,6 +17,7 @@ jobs:
       with:
         json-file-path: 'merged.json'
         github-token: ${{ secrets.REPO }}
+        file-to-use: 'SMOKE.md'
         columns: 7
         object-field-names: '[ "board_name", "u-boot", "kernel" , "iperf" , "sevenzip" , "armbian_monitor" , "kernel_target" ]'
         html-cell: '<tr><td align="left">{{ board_name }}</td><td align=left>{{ kernel_target }}</td><td align=right>{{ u-boot }}</td><td align=right>{{ kernel }}</td></tr><td align=right>{{ iperf }}</td><td aligh=right>{{ sevenzip }}</td><td align=right><a href="{{ armbian_monitor }}">Logs</a></td></tr>'
