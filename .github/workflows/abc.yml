@@ -19,4 +19,4 @@ jobs:
         github-token: ${{ secrets.REPO }}
         columns: 7
         object-field-names: '[ "board_name", "kernel_target", "u-boot", "kernel" , "iperf" , "sevenzip" , "armbian_monitor" ]'
-        html-cell: '<tr><td align="left">{{ board_name }}</td><td align=left>{{ kernel_target }}</td><td align=right>{{ u-boot }}</td><td align=right>{{ kernel }}</td><td align=right>{{ iperf }}</td><td aligh=right>{{ sevenzip }}</td><td align=right><a href="{{ armbian_monitor }}">Logs</a></td></tr>'
+        html-cell: '<td align="left">{{ board_name }}</td><td align=left>{{ kernel_target }}</td><td align=right>{{ u-boot }}</td><td align=right>{{ kernel }}</td><td align=right>{{ iperf }}</td><td align=right>{{ sevenzip }}</td><td align=right><a href="{{ armbian_monitor }}">Logs</a></td>'
