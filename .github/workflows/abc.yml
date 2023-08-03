@@ -15,9 +15,9 @@ jobs:
     - name: Read/Write data into README
       uses: eddiejaoude/github-actions-reader-writer@v0.1
       with:
-        json-file-path: 'data.json'
+        json-file-path: 'merged.json'
         github-token: ${{ secrets.GITHUB_TOKEN }}
         columns: 3
-        object-field-names: '[ "githubUsername", "name", "imageUrl", "issueNumber" ]'
+        object-field-names: '[ "started", "started", "board_name", "board_slug", "u-boot", "kernel" , "iperf" , "sevenzip" , "armbian_monitor" , "kernel_target" ]'
         file-to-use: 'README.md'
-        html-cell: '<td align="center"><p><a href="https://github.com/{{ githubUsername }}">{{ name }}</a></p><img src="{{ imageUrl }}" /><p><a href="https://github.com/EddieJaoudeCommunity/awesome-github-profiles/issues/{{ issueNumber }}">(:100: give your vote)</a></p></td>'
+        html-cell: '<td align="center"><p><a href="{{ armbian_monitor }}">{{ board_name }}</a></p></td>'
