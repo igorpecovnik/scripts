@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Read/Write data into README
-      uses: EddieHubCommunity/gh-actions-html-table-generator@v0.1.1
+      uses: eddiejaoude/github-actions-reader-writer@v0.1
       with:
         json-file-path: 'merged.json'
         github-token: ${{ secrets.REPO }}
